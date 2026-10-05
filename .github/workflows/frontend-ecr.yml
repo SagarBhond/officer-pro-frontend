@@ -42,8 +42,8 @@ jobs:
           file: Dockerfile
           push: true
           build-args: |
-            VITE_KEYCLOAK_URL=${{ vars.VITE_KEYCLOAK_URL || 'https://dev-keycloak.officerspro.in' }}
-            VITE_KEYCLOAK_REALM=${{ vars.VITE_KEYCLOAK_REALM || 'officers-pro' }}
+            VITE_KEYCLOAK_URL=${{ vars.VITE_KEYCLOAK_URL || 'https://auth.sagarbhond.site' }}
+            VITE_KEYCLOAK_REALM=${{ vars.VITE_KEYCLOAK_REALM || 'OfficerPro' }}
           tags: ${{ steps.ecr-login.outputs.registry }}/officerpro/frontend:${{ github.sha }}
           cache-from: type=gha,scope=officerpro-frontend
           cache-to: type=gha,mode=max,scope=officerpro-frontend

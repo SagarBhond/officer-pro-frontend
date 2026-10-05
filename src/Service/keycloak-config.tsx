@@ -1,8 +1,8 @@
 import Keycloak from 'keycloak-js';
 
 export const keycloakConfig = {
-  realm: import.meta.env.VITE_KEYCLOAK_REALM || 'officers-pro',
-  url: (import.meta.env.VITE_KEYCLOAK_URL || 'https://dev-keycloak.officerspro.in').replace(/\/+$/, ''),
+  realm: import.meta.env.VITE_KEYCLOAK_REALM || 'OfficerPro',
+  url: (import.meta.env.VITE_KEYCLOAK_URL || 'https://auth.sagarbhond.site').replace(/\/+$/, ''),
   clientId: 'officerpro-officer-app',
 };
 

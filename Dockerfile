@@ -3,8 +3,8 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
-ARG VITE_KEYCLOAK_URL=https://dev-keycloak.officerspro.in
-ARG VITE_KEYCLOAK_REALM=officers-pro
+ARG VITE_KEYCLOAK_URL=https://auth.sagarbhond.site
+ARG VITE_KEYCLOAK_REALM=OfficerPro
 ENV VITE_KEYCLOAK_URL=$VITE_KEYCLOAK_URL
 ENV VITE_KEYCLOAK_REALM=$VITE_KEYCLOAK_REALM
 
