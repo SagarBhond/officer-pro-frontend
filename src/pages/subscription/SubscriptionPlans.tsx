@@ -4,6 +4,7 @@ import axios from "axios";
 
 // Get API URL from environment variable
 const SUBSCRIPTION_API = import.meta.env.VITE_SUBSCRIPTION_API;
+const ADMIN_API = import.meta.env.VITE_ADMIN_API || 'http://localhost:8081/api';
 
 // Razorpay type declaration
 declare global {
@@ -49,7 +50,7 @@ const SubscriptionPlans: React.FC<Props> = ({ handleLogout }) => {
   useEffect(() => {
     // Fetch plans from backend
     setPlansLoading(true);
-    axios.get("http://localhost:8081/api/public/plans")
+    axios.get(`${ADMIN_API}/public/plans`)
       .then(res => setPlans(res.data))
       .catch(() => setPlans([]))
       .finally(() => setPlansLoading(false));

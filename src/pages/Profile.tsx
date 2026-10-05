@@ -26,7 +26,7 @@ type ProfileProps = {
 const Profile: React.FC<ProfileProps> = ({ handleLogout }) => {
   const imagekey = import.meta.env.VITE_IMAGE_API;
   const profileApiUrl = import.meta.env.VITE_PROFILE_API || 'http://localhost:8084/api/profile';
-  const documentApiUrl = 'http://localhost:8085/api/documents';
+  const documentApiUrl = import.meta.env.VITE_DOCUMENT_API || 'http://localhost:8085/api/documents';
   const [officer, setOfficer] = useState<Officer | null>(null);
   const [passportFileUrl, setPassportFileUrl] = useState<string | null>(null);
   const [isEditing, setIsEditing] = useState(false);
