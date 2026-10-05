@@ -3,6 +3,11 @@
 FROM node:20-alpine AS build
 WORKDIR /app
 
+ARG VITE_KEYCLOAK_URL=https://dev-keycloak.officerspro.in
+ARG VITE_KEYCLOAK_REALM=officers-pro
+ENV VITE_KEYCLOAK_URL=$VITE_KEYCLOAK_URL
+ENV VITE_KEYCLOAK_REALM=$VITE_KEYCLOAK_REALM
+
 # Install from the lockfile separately so source edits reuse this layer.
 COPY package.json package-lock.json ./
 RUN --mount=type=cache,target=/root/.npm npm ci --no-audit --no-fund

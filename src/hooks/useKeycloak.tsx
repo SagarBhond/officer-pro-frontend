@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import keycloak from '../Service/keycloak-config';
+import keycloak, { keycloakConfig } from '../Service/keycloak-config';
 
 interface UseKeycloakReturn {
   authenticated: boolean;
@@ -52,11 +52,7 @@ export const useKeycloak = (): UseKeycloakReturn => {
 
     initializingRef.current = true;
     console.log('🔐 Initializing Keycloak...');
-    console.log('🔧 Keycloak Config:', {
-      realm: 'OfficerPro',
-      url: 'http://localhost:8080',
-      clientId: 'officerpro-officer-app'
-    });
+    console.log('🔧 Keycloak Config:', keycloakConfig);
     
     keycloak
       .init({
@@ -174,10 +170,10 @@ export const useKeycloak = (): UseKeycloakReturn => {
           error: error
         });
         console.error('🔧 Check if:');
-        console.error('  1. Keycloak is running on http://localhost:8080');
-        console.error('  2. Realm "OfficerPro" exists');
+        console.error(`  1. Keycloak is reachable at ${keycloakConfig.url}`);
+        console.error(`  2. Realm "${keycloakConfig.realm}" exists`);
         console.error('  3. Client "officerpro-officer-app" is configured');
-        console.error('  4. Web Origins includes http://localhost:5173');
+        console.error('  4. The client allows this site origin and redirect URI');
         setLoading(false);
       });
 
