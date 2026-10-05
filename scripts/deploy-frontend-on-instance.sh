@@ -9,9 +9,29 @@ if [[ ! "$IMAGE_URI" =~ ^[0-9]{12}\.dkr\.ecr\.[a-z0-9-]+\.amazonaws\.com/officer
   exit 2
 fi
 
-command -v docker >/dev/null || { printf 'Docker is required on the frontend instance.\n' >&2; exit 1; }
 command -v aws >/dev/null || { printf 'AWS CLI is required on the frontend instance.\n' >&2; exit 1; }
 command -v curl >/dev/null || { printf 'curl is required on the frontend instance.\n' >&2; exit 1; }
+
+if ! command -v docker >/dev/null; then
+  if command -v dnf >/dev/null; then
+    dnf install -y docker
+  elif command -v yum >/dev/null; then
+    yum install -y docker
+  else
+    printf 'Docker is missing and no supported package manager (dnf or yum) was found.\n' >&2
+    exit 1
+  fi
+fi
+
+if ! command -v systemctl >/dev/null; then
+  printf 'systemctl is required to start Docker on the frontend instance.\n' >&2
+  exit 1
+fi
+systemctl enable --now docker
+if ! docker info >/dev/null 2>&1; then
+  printf 'Docker daemon did not become available on the frontend instance.\n' >&2
+  exit 1
+fi
 
 registry="${IMAGE_URI%%/*}"
 aws ecr get-login-password --region "$AWS_REGION" |
